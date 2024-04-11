@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/css/style.css">
+    <title>Працівники</title>
+</head>
+<body>
+    {% include "nav-bar.html" %}
+    <section>
+        <h2>Працівники</h2>
+        <ul>
+            <li class="titles">
+                <div class="employee-info">
+                    <strong><a href="?sort_by=last_name"><h3>Прізвище</h3></a></strong> 
+                    <strong><a href="?sort_by=first_name"><h3>Ім'я</h3></a></strong> 
+                    <strong><a href="?sort_by=position"><h3>Посада</h3></a></strong> 
+                    <strong><a href="?sort_by=salary"><h3>Зарплата</h3></a></strong> 
+                    <strong><h3>Всього: {{employees|length}}</h3></strong> 
+                </div>
+            </li>
+            <hr></hr>
+            
+            {% for employee in employees %}
+            <li>
+                <div class="employee-info">
+                    <strong><a href="{% url "employee-page" employee.slug %}">{{employee.last_name}}</a></strong> 
+                    <strong>{{employee.first_name}}</strong> 
+                    <strong>{{employee.position}}</strong> 
+                    <strong>{{employee.salary}}₴</strong>
+                    <form action="{% if employee.slug %}{% url 'update-employee-page' slug=employee.slug %}{% endif %}" class="update-button-form">
+                        <button class="update-button">Редагувати</button> 
+                        {% csrf_token %}
+                    </form>
+                    <form action="{% if employee.slug %}{% url 'delete-employee' slug=employee.slug %}{% endif %}" method="post" class="update-button-form">
+                        {% csrf_token %}
+                        <button type="submit" class="update-button">Видалити</button>
+                    </form>
+                </div>
+            </li>
+            <hr></hr>
+            {% endfor %}
+        </ul>
+    </section>
+</body>
+</html>

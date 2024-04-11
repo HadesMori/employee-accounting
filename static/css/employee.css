@@ -1,0 +1,14 @@
+.employee-info {
+    width: 900px;
+    text-align: justify;
+    display: flex;
+    flex-direction: column;
+}
+.employee-info strong{
+    padding-bottom: 30px;
+    width: 500px;
+}
+
+.update-button-form {
+    margin-bottom: 30px;
+}
